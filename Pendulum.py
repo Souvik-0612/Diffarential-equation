@@ -13,9 +13,10 @@ class secondOrderEuler:
         yy = []
         while(x <= self.xf):
             yy.append(y)
-            y += self.h*z                  # THE
-            x += self.h                    # SIMULTANEOUS
-            z += self.h*self.g(x, y, z)    # EQUATIONS
+            x += self.h                    
+            z += self.h*self.g(x, y, z)
+            y += self.h*z                  
+                
                         
         return yy
 
@@ -23,7 +24,7 @@ class secondOrderEuler:
     def z_axis(self):
         x, y, z = self.xi, self.yi, self.zi
         zz = []
-        while(x < self.xf):
+        while(x <= self.xf):
             zz.append(z)
             z += self.h*self.g(x, y, z)
             x += self.h
@@ -35,7 +36,7 @@ class secondOrderEuler:
     def x_axis(self):
         x = self.xi
         xx = []
-        while (x < self.xf):
+        while (x <= self.xf):
             xx.append(x)
             x += self.h
 
@@ -61,15 +62,16 @@ Dpen = secondOrderEuler(ti, theta_i, theta1primei, lambda x, y, z: -np.sin(y) , 
 
 #How to find the time period of the given plot
 def TimePeriod(y, x):
-	i = 1
+	i = 0
 	while (y[i] > y[i+1]):
 		i += 1
 		
-	return 2*(x[i] - x[1])
+	return 2*(x[i] - x[0])
 
 print("The period for Simple", TimePeriod(Dsim.y_axis(), Dsim.x_axis()))
 
 print("The period for original", TimePeriod(Dpen.y_axis(), Dpen.x_axis()))
+
 
 #Plotting
 plt.rcParams["figure.figsize"] = (150, 6)
